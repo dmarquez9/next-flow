@@ -3,7 +3,9 @@ import RenderPage from '@/features/editor/RenderPage'
 import { getPageContent, getAllPageSlugs } from '@/lib/db/page'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{
+    slug: string
+  }>
 }
 
 export default async function Page({ params }: Props) {
