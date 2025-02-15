@@ -1,5 +1,5 @@
 import { JSX } from 'react'
-import { Block, TextElement } from './types'
+import { Block, TextElement } from '../types'
 
 function renderContent(block: Block, key: number) {
   switch (block.type) {

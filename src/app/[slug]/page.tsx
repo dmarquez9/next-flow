@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import RenderPage from '@/features/editor/RenderPage'
+import RenderPage from '@/features/editor/components/RenderPage'
 import { getPageContent, getAllPageSlugs } from '@/lib/db/page'
 
 type Props = {

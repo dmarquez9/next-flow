@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { SelectPage } from './SelectPage'
 
 export function TopNav() {
   return (
@@ -16,6 +17,7 @@ export function TopNav() {
         <Button variant="ghost" size="icon">
           <Settings className="h-4 w-4" />
         </Button>
+        <SelectPage />
         <Select defaultValue="all">
           <SelectTrigger className="w-[120px]">
             <SelectValue />

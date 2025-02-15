@@ -4,7 +4,10 @@ import { Block } from '@/features/editor/types'
 // 🔹 Fetch a single page by slug
 export async function getPageContent(slug: string) {
   try {
-    const page = await prisma.page.findUnique({ where: { slug } })
+    const page = await prisma.page.findUnique({
+      where: { slug },
+      select: { content: true },
+    })
 
     return page ? (page.content as Block[]) : null
   } catch (error) {

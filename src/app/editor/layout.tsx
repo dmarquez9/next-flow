@@ -1,4 +1,5 @@
-import { TopNav } from '@/components/TopNav'
+import { TopNav } from '@/features/editor/components/TopNav'
+import { EditorProvider } from '@/features/editor/context/useEditor'
 
 export default function EditorLayout({
   children,
@@ -6,9 +7,11 @@ export default function EditorLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex h-screen flex-col bg-background">
-      <TopNav />
-      {children}
-    </div>
+    <EditorProvider>
+      <div className="flex h-screen flex-col bg-background">
+        <TopNav />
+        {children}
+      </div>
+    </EditorProvider>
   )
 }

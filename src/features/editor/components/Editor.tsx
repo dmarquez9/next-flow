@@ -1,12 +1,12 @@
 'use client'
 import dynamic from 'next/dynamic'
 
-const Canvas = dynamic(() => import('./components/Canvas'), {
+const Canvas = dynamic(() => import('./Canvas'), {
   ssr: false,
 })
 
-import { MainNav } from './components/MainNav'
-import { StylePanel } from './components/StylePanel'
+import { MainNav } from './MainNav'
+import { StylePanel } from './StylePanel'
 
 const Editor = () => {
   return (
