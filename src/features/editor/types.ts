@@ -1,4 +1,4 @@
-import { BaseEditor } from 'slate'
+import { BaseEditor, Descendant } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { HistoryEditor } from 'slate-history'
 
@@ -30,4 +30,4 @@ declare module 'slate' {
     Text: TextElement
   }
 }
-export type PageData = Record<string, Block[]>
+export type PageData = Record<string, Descendant[]>

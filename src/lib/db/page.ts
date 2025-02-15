@@ -1,5 +1,5 @@
+import { Descendant } from 'slate'
 import { prisma } from './prisma'
-import { Block } from '@/features/editor/types'
 
 // 🔹 Fetch a single page by slug
 export async function getPageContent(slug: string) {
@@ -9,17 +9,20 @@ export async function getPageContent(slug: string) {
       select: { content: true },
     })
 
-    return page ? (page.content as Block[]) : null
+    return page ? (page.content as Descendant[]) : []
   } catch (error) {
     console.error('Error fetching page:', error)
-    return null
+    return []
   }
 }
 
 // 🔹 Fetch all slugs for static generation
 export async function getAllPageSlugs() {
   try {
-    const pages = await prisma.page.findMany({ select: { slug: true } })
+    const pages = await prisma.page.findMany({
+      select: { slug: true },
+      orderBy: { id: 'asc' },
+    })
 
     return pages.map((page) => ({ slug: page.slug }))
   } catch (error) {

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Select,
   SelectContent,
@@ -6,22 +8,25 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-import { getAllPageSlugs } from '@/lib/db/page'
 import { capitalizeFirstLetter } from '@/lib/utils'
+import { useEditor } from '../context/useEditor'
 
-export async function SelectPage() {
-  const pagesSlugs = await getAllPageSlugs()
-  const activePage = pagesSlugs[0]?.slug || 'home'
+export function SelectPage() {
+  const { currentPage, setPage, pages } = useEditor()
+
+  const handlePageChange = (slug: string) => {
+    setPage(slug)
+  }
 
   return (
-    <Select defaultValue={activePage}>
+    <Select value={currentPage} onValueChange={handlePageChange}>
       <SelectTrigger className="w-[120px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {pagesSlugs.map((page) => (
-          <SelectItem key={page.slug} value={page.slug}>
-            {capitalizeFirstLetter(page.slug)}
+        {pages.map((slug) => (
+          <SelectItem key={slug} value={slug}>
+            {capitalizeFirstLetter(slug)}
           </SelectItem>
         ))}
       </SelectContent>

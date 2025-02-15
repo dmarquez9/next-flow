@@ -1,14 +1,24 @@
 'use client'
 
-import React, { useMemo, useCallback } from 'react'
-import { createEditor } from 'slate'
+import React, { useMemo, useCallback, useState, useEffect } from 'react'
+import { createEditor, Descendant } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { withHistory } from 'slate-history'
 import { useEditor } from '../context/useEditor'
 
 const Canvas: React.FC = () => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-  const { currentContent } = useEditor()
+  const { currentContent, setContent } = useEditor()
+  const [localValue, setLocalValue] = useState(currentContent)
+
+  useEffect(() => {
+    setLocalValue(currentContent)
+  }, [currentContent])
+
+  const handleChange = useCallback(
+    (value: Descendant[]) => [setContent(value), setLocalValue(value)],
+    [setContent]
+  )
 
   // @ts-expect-error: Unreachable code error
   const renderElement = useCallback((props) => {
@@ -50,8 +60,9 @@ const Canvas: React.FC = () => {
   return (
     <Slate
       editor={editor}
-      initialValue={currentContent}
-      onChange={(value) => console.log(value)}
+      initialValue={localValue}
+      onValueChange={handleChange}
+      key={JSON.stringify(localValue)}
     >
       <Editable
         renderElement={renderElement}
