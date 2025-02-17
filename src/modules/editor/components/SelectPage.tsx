@@ -7,12 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
 import { capitalizeFirstLetter } from '@/lib/utils'
+
 import { useEditor } from '../context/useEditor'
 
 export function SelectPage() {
-  const { currentPage, setPage, pages } = useEditor()
+  const { currentPage, pages, setPage } = useEditor()
 
   const handlePageChange = (slug: string) => {
     setPage(slug)

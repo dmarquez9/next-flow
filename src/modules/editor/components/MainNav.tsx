@@ -1,13 +1,13 @@
 import { ChevronDown, Layers, Home } from 'lucide-react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
-
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
+import { cn } from '@/lib/utils'
+
 
 interface NavItemProps {
   label: string
@@ -18,11 +18,11 @@ interface NavItemProps {
 }
 
 function NavItem({
-  label,
   children,
   className,
-  icon,
   expanded = false,
+  icon,
+  label,
 }: NavItemProps) {
   if (children) {
     return (

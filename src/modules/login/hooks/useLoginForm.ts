@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),

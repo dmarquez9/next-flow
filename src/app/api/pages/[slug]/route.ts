@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db/prisma'
+
 import { HTTP_STATUS } from '@/lib/constants'
+import { prisma } from '@/lib/db/prisma'
 
 export async function GET(
   req: Request,

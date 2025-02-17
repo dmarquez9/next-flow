@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db/prisma'
+
 import { HTTP_STATUS } from '@/lib/constants'
+import { prisma } from '@/lib/db/prisma'
 
 export async function POST(req: Request) {
   try {
-    const { slug, content } = await req.json()
+    const { content, slug } = await req.json()
 
     if (!slug || !content) {
       return NextResponse.json(

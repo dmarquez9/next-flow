@@ -1,4 +1,5 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormField,
@@ -7,12 +8,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+
 import { useLoginForm } from '../hooks/useLoginForm'
 
 export function LoginForm() {
-  const { form, onSubmit, error } = useLoginForm()
+  const { error, form, onSubmit } = useLoginForm()
   return (
     <>
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}

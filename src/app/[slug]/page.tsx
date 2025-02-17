@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
-import RenderPage from '@/modules/editor/components/RenderPage'
+
 import { getPageContent, getAllPageSlugs } from '@/lib/db/page'
+import RenderPage from '@/modules/editor/components/RenderPage'
 import { Block } from '@/modules/editor/types'
 
 type Props = {

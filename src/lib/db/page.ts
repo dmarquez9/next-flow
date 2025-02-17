@@ -1,4 +1,5 @@
 import { Descendant } from 'slate'
+
 import { prisma } from './prisma'
 
 // 🔹 Fetch a single page by slug

@@ -8,6 +8,7 @@ import {
   ReactNode,
   useRef,
 } from 'react'
+
 import { Descendant } from 'slate'
 import { toast } from 'sonner'
 
@@ -35,9 +36,9 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined)
 // Provider Component
 export function EditorProvider({
   children,
-  pages,
-  initialPage,
   initialContent,
+  initialPage,
+  pages,
 }: EditorProviderProps) {
   const [currentPage, setCurrentPage] = useState<string>(initialPage)
   const [currentContent, setCurrentContent] =

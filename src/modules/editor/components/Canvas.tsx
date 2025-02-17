@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useMemo, useCallback, useState, useEffect } from 'react'
+
 import { createEditor, Descendant } from 'slate'
-import { Slate, Editable, withReact } from 'slate-react'
 import { withHistory } from 'slate-history'
+import { Slate, Editable, withReact } from 'slate-react'
+
 import { useEditor } from '../context/useEditor'
 
 const Canvas: React.FC = () => {

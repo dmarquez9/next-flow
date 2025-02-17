@@ -1,8 +1,9 @@
-import NextAuth, { AuthOptions, Session, User } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { JWT } from 'next-auth/jwt'
-import { prisma } from '@/lib/db/prisma'
 import bcrypt from 'bcrypt'
+import NextAuth, { AuthOptions, Session, User } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
+import CredentialsProvider from 'next-auth/providers/credentials'
+
+import { prisma } from '@/lib/db/prisma'
 
 export const authOptions: AuthOptions = {
   providers: [
