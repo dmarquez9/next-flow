@@ -5,6 +5,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { TopNav } from '@/modules/editor/components/TopNav'
 import { EditorProvider } from '@/modules/editor/context/useEditor'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
+import { Toaster } from '@/components/ui/sonner'
 
 export default async function EditorLayout({
   children,
@@ -31,6 +32,7 @@ export default async function EditorLayout({
       <div className="flex h-screen flex-col bg-background">
         <TopNav />
         {children}
+        <Toaster richColors position="bottom-center" />
       </div>
     </EditorProvider>
   )

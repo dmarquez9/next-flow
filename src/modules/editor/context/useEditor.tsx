@@ -9,11 +9,13 @@ import {
   useRef,
 } from 'react'
 import { Descendant } from 'slate'
+import { toast } from 'sonner'
 
 // Define the Context Type
 type EditorContextType = {
   currentPage: string
   currentContent: Descendant[]
+  isSaving: boolean
   pages: string[]
   setPage: (slug: string) => void
   savePageContent: () => Promise<void>
@@ -40,6 +42,7 @@ export function EditorProvider({
   const [currentPage, setCurrentPage] = useState<string>(initialPage)
   const [currentContent, setCurrentContent] =
     useState<Descendant[]>(initialContent)
+  const [isSaving, setIsSaving] = useState<boolean>(false)
   const isInitialRender = useRef(true)
 
   const setPage = (slug: string) => {
@@ -75,7 +78,7 @@ export function EditorProvider({
 
   const savePageContent = async () => {
     if (!currentPage) return
-
+    setIsSaving(true)
     try {
       const response = await fetch('/api/pages', {
         method: 'POST',
@@ -87,8 +90,12 @@ export function EditorProvider({
       if (!response.ok) throw new Error(data.message || 'Failed to save page')
 
       console.log('Page saved:', data)
+      toast.success('Page saved successfully! 🎉')
     } catch (error) {
       console.error('Error saving page:', error)
+      toast.error('Failed to save page. Please try again.')
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -97,6 +104,7 @@ export function EditorProvider({
       value={{
         currentPage,
         currentContent,
+        isSaving,
         setPage,
         savePageContent,
         setContent: setCurrentContent,
@@ -108,7 +116,6 @@ export function EditorProvider({
   )
 }
 
-// Custom Hook
 export function useEditor() {
   const context = useContext(EditorContext)
   if (!context)
