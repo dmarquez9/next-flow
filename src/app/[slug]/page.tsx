@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
-import RenderPage from '@/features/editor/components/RenderPage'
+import RenderPage from '@/modules/editor/components/RenderPage'
 import { getPageContent, getAllPageSlugs } from '@/lib/db/page'
+import { Block } from '@/modules/editor/types'
 
 type Props = {
   params: Promise<{
@@ -14,7 +15,7 @@ export default async function Page({ params }: Props) {
 
   if (!content) return notFound()
 
-  return <RenderPage content={content} />
+  return <RenderPage content={content as Block[]} />
 }
 
 export async function generateStaticParams() {
