@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { Toaster } from '@/components/ui/sonner'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
-import { TopNav } from '@/modules/editor/components/TopNav'
 import { EditorProvider } from '@/modules/editor/context/useEditor'
 
 export default async function EditorLayout({
@@ -30,7 +29,6 @@ export default async function EditorLayout({
       initialContent={initialPageContent}
     >
       <div className="flex h-screen flex-col bg-background">
-        <TopNav />
         {children}
         <Toaster richColors position="bottom-center" />
       </div>
