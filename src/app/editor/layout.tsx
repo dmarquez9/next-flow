@@ -4,7 +4,9 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { Toaster } from '@/components/ui/sonner'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
+import { TopNav } from '@/modules/editor/components/TopNav'
 import { EditorProvider } from '@/modules/editor/context/useEditor'
+import AuthWrapper from '@/modules/login/components/AuthWrapper'
 
 export default async function EditorLayout({
   children,
@@ -23,15 +25,18 @@ export default async function EditorLayout({
   const initialPageContent = await getPageContent(initialPage)
 
   return (
-    <EditorProvider
-      pages={pagesSlugs.map((page) => page.slug)}
-      initialPage={initialPage}
-      initialContent={initialPageContent}
-    >
-      <div className="flex h-screen flex-col bg-background">
-        {children}
-        <Toaster richColors position="bottom-center" />
-      </div>
-    </EditorProvider>
+    <AuthWrapper>
+      <EditorProvider
+        pages={pagesSlugs.map((page) => page.slug)}
+        initialPage={initialPage}
+        initialContent={initialPageContent}
+      >
+        <div className="flex h-screen flex-col bg-background">
+          <TopNav />
+          {children}
+          <Toaster richColors position="bottom-center" />
+        </div>
+      </EditorProvider>
+    </AuthWrapper>
   )
 }
