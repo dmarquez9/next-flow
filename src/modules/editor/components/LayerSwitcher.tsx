@@ -1,6 +1,9 @@
 'use client'
 
-import { Check, ChevronsUpDown, StickyNote } from 'lucide-react'
+import * as React from 'react'
+
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { DynamicIcon } from 'lucide-react/dynamic'
 
 import {
   DropdownMenu,
@@ -15,14 +18,18 @@ import {
 } from '@/components/ui/sidebar'
 import { capitalizeFirstLetter } from '@/lib/utils'
 
-import { useEditor } from '../context/useEditor'
+enum LayerTypes {
+  heading = 'heading',
+  paragraph = 'paragraph',
+}
 
-export function SelectPage() {
-  const { currentPage, pages, setPage } = useEditor()
+type LayerTypesKeys = keyof typeof LayerTypes
+const defaultLayer: LayerTypesKeys = 'paragraph'
+import { getIconName } from '../utils'
 
-  const handlePageChange = (slug: string) => {
-    setPage(slug)
-  }
+export function LayerSwitcher() {
+  const [selectedLayer, setSelectedLayer] =
+    React.useState<LayerTypesKeys>(defaultLayer)
 
   return (
     <SidebarMenu>
@@ -34,13 +41,14 @@ export function SelectPage() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <StickyNote className="size-4" />
+                <DynamicIcon
+                  className="size-4"
+                  name={getIconName({ type: selectedLayer })}
+                />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-semibold">
-                  {capitalizeFirstLetter(currentPage)}
-                </span>
-                <span className="">Current page</span>
+                <span className="font-semibold">Layer Style</span>
+                <span className="">{selectedLayer}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -49,13 +57,13 @@ export function SelectPage() {
             className="w-[--radix-dropdown-menu-trigger-width]"
             align="start"
           >
-            {pages.map((slug) => (
+            {Object.keys(LayerTypes).map((layerType) => (
               <DropdownMenuItem
-                key={slug}
-                onClick={() => handlePageChange(slug)}
+                key={layerType}
+                onSelect={() => setSelectedLayer(layerType as LayerTypesKeys)}
               >
-                {capitalizeFirstLetter(slug)}{' '}
-                {currentPage === slug && <Check className="ml-auto" />}
+                {capitalizeFirstLetter(layerType)}{' '}
+                {layerType === selectedLayer && <Check className="ml-auto" />}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

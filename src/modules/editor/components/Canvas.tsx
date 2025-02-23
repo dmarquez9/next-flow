@@ -70,7 +70,7 @@ const Canvas: React.FC = () => {
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder="Escribe aquí..."
-        className="p-4 border rounded"
+        className="focus:outline-none"
       />
     </Slate>
   )

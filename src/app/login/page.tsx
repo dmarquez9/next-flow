@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { authOptions } from '@/lib/authOptions'
 import { LoginForm } from '@/modules/login/components/LoginForm'
 
 export default async function LoginPage() {

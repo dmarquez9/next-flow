@@ -1,10 +1,12 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
+import { authOptions } from '@/lib/authOptions'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
-import { TopNav } from '@/modules/editor/components/TopNav'
+import EditorSidebar from '@/modules/editor/components/EditorSidebar'
+import { StyleSidebar } from '@/modules/editor/components/StyleSidebar'
 import { EditorProvider } from '@/modules/editor/context/useEditor'
 import AuthWrapper from '@/modules/login/components/AuthWrapper'
 
@@ -31,11 +33,14 @@ export default async function EditorLayout({
         initialPage={initialPage}
         initialContent={initialPageContent}
       >
-        <div className="flex h-screen flex-col bg-background">
-          <TopNav />
-          {children}
-          <Toaster richColors position="bottom-center" />
-        </div>
+        <SidebarProvider>
+          <EditorSidebar />
+          <SidebarInset>
+            {children}
+            <Toaster richColors position="bottom-center" />
+          </SidebarInset>
+          <StyleSidebar />
+        </SidebarProvider>
       </EditorProvider>
     </AuthWrapper>
   )
