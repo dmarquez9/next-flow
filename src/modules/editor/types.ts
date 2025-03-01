@@ -1,6 +1,4 @@
-import { BaseEditor, Descendant } from 'slate'
-import { HistoryEditor } from 'slate-history'
-import { ReactEditor } from 'slate-react'
+import { JSONContent } from '@tiptap/react'
 
 export type TextElement = {
   text: string
@@ -19,15 +17,4 @@ export type HeadingElement = {
   children: TextElement[]
 }
 
-export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor
-
-export type Block = ParagraphElement | HeadingElement
-
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: CustomEditor
-    Element: Block
-    Text: TextElement
-  }
-}
-export type PageData = Record<string, Descendant[]>
+export type PageData = Record<string, JSONContent>

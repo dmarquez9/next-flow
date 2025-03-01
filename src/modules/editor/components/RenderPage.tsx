@@ -1,13 +1,39 @@
 import { JSX } from 'react'
 
-import { Block, TextElement } from '../types'
+import { JSONContent } from '@tiptap/react'
 
-function renderContent(block: Block, key: number) {
+import { cn } from '@/lib/utils'
+
+import { TextElement } from '../types'
+
+type TKey = string | number
+
+function renderContent(block: JSONContent, key: TKey) {
   switch (block.type) {
+    case 'text': {
+      if (block.marks && block.marks.length > 0) {
+        const marksType = block.marks.map((mark) => mark.type)
+        return (
+          <span
+            key={key}
+            className={cn({
+              'font-bold': marksType.includes('bold'),
+              italic: marksType.includes('italic'),
+              underline: marksType.includes('strike'),
+            })}
+          >
+            {block.text}
+          </span>
+        )
+      }
+      return block.text
+    }
     case 'paragraph':
       return (
         <p key={key}>
-          {block.children.map((child: TextElement) => child.text).join('')}
+          {block.content?.map((content, index) =>
+            renderContent(content, `${block.type}-${key}-${index}`)
+          )}
         </p>
       )
 
@@ -25,8 +51,12 @@ function renderContent(block: Block, key: number) {
   }
 }
 
-export default function RenderPage({ content }: { content: Block[] }) {
+export default function RenderPage({ content }: { content: JSONContent }) {
   return (
-    <>{content.map((block: Block, i: number) => renderContent(block, i))}</>
+    <>
+      {content.content?.map((block: JSONContent, i: number) =>
+        renderContent(block, i)
+      )}
+    </>
   )
 }

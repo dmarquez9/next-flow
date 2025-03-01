@@ -1,4 +1,4 @@
-import { Descendant } from 'slate'
+import { JSONContent } from '@tiptap/react'
 
 import { prisma } from './prisma'
 
@@ -10,7 +10,7 @@ export async function getPageContent(slug: string) {
       select: { content: true },
     })
 
-    return page ? (page.content as Descendant[]) : []
+    return page ? (page.content as JSONContent) : {}
   } catch (error) {
     console.error('Error fetching page:', error)
     return []

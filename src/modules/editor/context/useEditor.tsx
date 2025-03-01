@@ -9,25 +9,26 @@ import {
   useRef,
 } from 'react'
 
-import { Descendant } from 'slate'
+import { JSONContent } from '@tiptap/react'
 import { toast } from 'sonner'
 
 // Define the Context Type
 type EditorContextType = {
   currentPage: string
-  currentContent: Descendant[]
+  currentContent: JSONContent
+  initialContent: JSONContent
   isSaving: boolean
   pages: string[]
   setPage: (slug: string) => void
   savePageContent: () => Promise<void>
-  setContent: (content: Descendant[]) => void
+  setContent: (content: JSONContent) => void
 }
 
 type EditorProviderProps = {
   children: ReactNode
   pages: string[]
   initialPage: string
-  initialContent: Descendant[]
+  initialContent: JSONContent
 }
 
 // Create Context
@@ -36,13 +37,15 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined)
 // Provider Component
 export function EditorProvider({
   children,
-  initialContent,
+  initialContent: initialRenderContent,
   initialPage,
   pages,
 }: EditorProviderProps) {
   const [currentPage, setCurrentPage] = useState<string>(initialPage)
   const [currentContent, setCurrentContent] =
-    useState<Descendant[]>(initialContent)
+    useState<JSONContent>(initialRenderContent)
+  const [initialContent, setInitialContent] =
+    useState<JSONContent>(initialRenderContent)
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const isInitialRender = useRef(true)
 
@@ -68,7 +71,8 @@ export function EditorProvider({
 
         if (!response.ok) throw new Error(data.message)
 
-        setCurrentContent(data.content || [])
+        setCurrentContent(data.content || {})
+        setInitialContent(data.content || {})
       } catch (error) {
         console.error('Error fetching page content:', error)
       }
@@ -105,6 +109,7 @@ export function EditorProvider({
       value={{
         currentPage,
         currentContent,
+        initialContent,
         isSaving,
         setPage,
         savePageContent,

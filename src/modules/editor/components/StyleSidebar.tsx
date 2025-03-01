@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar'
 
 import { LayerSwitcher } from './LayerSwitcher'
-import TypographyGroup from './style-group/TypographyGroup'
+import SpacingGroup from './style-group/SpacingGroup'
 
 export function StyleSidebar({
   ...props
@@ -18,7 +18,7 @@ export function StyleSidebar({
         <LayerSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <TypographyGroup />
+        <SpacingGroup />
       </SidebarContent>
     </Sidebar>
   )

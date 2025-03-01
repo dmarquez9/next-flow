@@ -7,6 +7,7 @@ import { authOptions } from '@/lib/authOptions'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
 import EditorSidebar from '@/modules/editor/components/EditorSidebar'
 import { StyleSidebar } from '@/modules/editor/components/StyleSidebar'
+import { CanvasProvider } from '@/modules/editor/context/useCanvas'
 import { EditorProvider } from '@/modules/editor/context/useEditor'
 import AuthWrapper from '@/modules/login/components/AuthWrapper'
 
@@ -34,14 +35,14 @@ export default async function EditorLayout({
         initialContent={initialPageContent}
       >
         <SidebarProvider>
-          <EditorSidebar />
-          <SidebarInset>
-            {children}
-            <Toaster richColors position="bottom-center" />
-          </SidebarInset>
-          <StyleSidebar />
+          <CanvasProvider>
+            <EditorSidebar />
+            <SidebarInset>{children}</SidebarInset>
+            <StyleSidebar />
+          </CanvasProvider>
         </SidebarProvider>
       </EditorProvider>
+      <Toaster richColors position="bottom-center" />
     </AuthWrapper>
   )
 }

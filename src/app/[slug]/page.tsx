@@ -1,8 +1,8 @@
+import { JSONContent } from '@tiptap/react'
 import { notFound } from 'next/navigation'
 
 import { getPageContent, getAllPageSlugs } from '@/lib/db/page'
 import RenderPage from '@/modules/editor/components/RenderPage'
-import { Block } from '@/modules/editor/types'
 
 type Props = {
   params: Promise<{
@@ -16,7 +16,7 @@ export default async function Page({ params }: Props) {
 
   if (!content) return notFound()
 
-  return <RenderPage content={content as Block[]} />
+  return <RenderPage content={content as JSONContent} />
 }
 
 export async function generateStaticParams() {
