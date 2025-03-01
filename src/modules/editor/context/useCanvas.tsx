@@ -14,7 +14,7 @@ interface CanvasContextType {
 const CanvasContext = createContext<CanvasContextType | undefined>(undefined)
 
 export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
-  const { currentContent, setContent } = useEditor()
+  const { initialContent, setContent } = useEditor()
   const isInitialRender = useRef<boolean>(true)
 
   const editor = useTipTapEditor({
@@ -26,7 +26,7 @@ export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
           'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl focus:outline-none',
       },
     },
-    content: currentContent,
+    content: initialContent,
     onUpdate: ({ editor }) => {
       console.log('🚀 ~ Canvas ~ editor.getJSON():', editor.getJSON())
       setContent(editor.getJSON())
@@ -40,9 +40,9 @@ export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (editor && !editor.isDestroyed) {
-      editor.commands.setContent(currentContent)
+      editor.commands.setContent(initialContent)
     }
-  }, [editor, currentContent])
+  }, [editor, initialContent])
 
   if (!editor) {
     return null
