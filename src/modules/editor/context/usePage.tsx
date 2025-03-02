@@ -13,7 +13,7 @@ import { JSONContent } from '@tiptap/react'
 import { toast } from 'sonner'
 
 // Define the Context Type
-type EditorContextType = {
+type PageContextType = {
   currentPage: string
   currentContent: JSONContent
   initialContent: JSONContent
@@ -24,7 +24,7 @@ type EditorContextType = {
   setContent: (content: JSONContent) => void
 }
 
-type EditorProviderProps = {
+type PageProviderProps = {
   children: ReactNode
   pages: string[]
   initialPage: string
@@ -32,15 +32,15 @@ type EditorProviderProps = {
 }
 
 // Create Context
-const EditorContext = createContext<EditorContextType | undefined>(undefined)
+const PageContext = createContext<PageContextType | undefined>(undefined)
 
 // Provider Component
-export function EditorProvider({
+export function PageProvider({
   children,
   initialContent: initialRenderContent,
   initialPage,
   pages,
-}: EditorProviderProps) {
+}: PageProviderProps) {
   const [currentPage, setCurrentPage] = useState<string>(initialPage)
   const [currentContent, setCurrentContent] =
     useState<JSONContent>(initialRenderContent)
@@ -105,7 +105,7 @@ export function EditorProvider({
   }
 
   return (
-    <EditorContext.Provider
+    <PageContext.Provider
       value={{
         currentPage,
         currentContent,
@@ -118,13 +118,12 @@ export function EditorProvider({
       }}
     >
       {children}
-    </EditorContext.Provider>
+    </PageContext.Provider>
   )
 }
 
-export function useEditor() {
-  const context = useContext(EditorContext)
-  if (!context)
-    throw new Error('useEditor must be used within an EditorProvider')
+export function usePage() {
+  const context = useContext(PageContext)
+  if (!context) throw new Error('usePage must be used within an PageProvider')
   return context
 }

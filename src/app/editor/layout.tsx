@@ -8,8 +8,8 @@ import { authOptions } from '@/lib/authOptions'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
 import EditorSidebar from '@/modules/editor/components/EditorSidebar'
 import { StyleSidebar } from '@/modules/editor/components/StyleSidebar'
-import { CanvasProvider } from '@/modules/editor/context/useCanvas'
-import { EditorProvider } from '@/modules/editor/context/useEditor'
+import { EditorPageProvider } from '@/modules/editor/context/useEditorPage'
+import { PageProvider } from '@/modules/editor/context/usePage'
 import AuthWrapper from '@/modules/login/components/AuthWrapper'
 
 export default async function EditorLayout({
@@ -36,19 +36,19 @@ export default async function EditorLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <EditorProvider
+        <PageProvider
           pages={pagesSlugs.map((page) => page.slug)}
           initialPage={initialPage}
           initialContent={initialPageContent}
         >
           <SidebarProvider>
-            <CanvasProvider>
+            <EditorPageProvider>
               <EditorSidebar />
               <SidebarInset>{children}</SidebarInset>
               <StyleSidebar />
-            </CanvasProvider>
+            </EditorPageProvider>
           </SidebarProvider>
-        </EditorProvider>
+        </PageProvider>
         <Toaster richColors position="bottom-center" />
       </ThemeProvider>
     </AuthWrapper>

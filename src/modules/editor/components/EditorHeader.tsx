@@ -11,12 +11,12 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { capitalizeFirstLetter } from '@/lib/utils'
 
-import { useEditor } from '../context/useEditor'
+import { usePage } from '../context/usePage'
 
 import { SavePageButton } from './SavePageButton'
 
 export default function EditorHeader() {
-  const { currentPage } = useEditor()
+  const { currentPage } = usePage()
   return (
     <header className="flex justify-between sticky top-0 bg-background h-16 shrink-0 items-center gap-2 border-b px-4">
       <div className="flex items-center gap-2">

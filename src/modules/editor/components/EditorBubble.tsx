@@ -4,10 +4,10 @@ import { Bold, Italic, Underline } from 'lucide-react'
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
-import { useCanvas } from '../context/useCanvas'
+import { useEditorPage } from '../context/useEditorPage'
 
 export default function EditorBubble() {
-  const { editor } = useCanvas()
+  const { editor } = useEditorPage()
 
   return (
     <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>

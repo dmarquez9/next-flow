@@ -15,10 +15,10 @@ import {
 } from '@/components/ui/sidebar'
 import { capitalizeFirstLetter } from '@/lib/utils'
 
-import { useEditor } from '../context/useEditor'
+import { usePage } from '../context/usePage'
 
 export function SelectPage() {
-  const { currentPage, pages, setPage } = useEditor()
+  const { currentPage, pages, setPage } = usePage()
 
   const handlePageChange = (slug: string) => {
     setPage(slug)

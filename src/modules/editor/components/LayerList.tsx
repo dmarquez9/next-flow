@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/sidebar'
 import { capitalizeFirstLetter } from '@/lib/utils'
 
-import { useEditor } from '../context/useEditor'
+import { usePage } from '../context/usePage'
 import { getIconName } from '../utils'
 
 export default function LayerList() {
-  const { currentContent } = useEditor()
+  const { currentContent } = usePage()
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Layers</SidebarGroupLabel>

@@ -3,10 +3,10 @@ import { Loader2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-import { useEditor } from '../context/useEditor'
+import { usePage } from '../context/usePage'
 
 export function SavePageButton() {
-  const { isSaving, savePageContent } = useEditor()
+  const { isSaving, savePageContent } = usePage()
 
   return (
     <Button onClick={savePageContent} disabled={isSaving}>

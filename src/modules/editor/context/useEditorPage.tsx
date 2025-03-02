@@ -5,16 +5,22 @@ import { createContext, useContext, useEffect, useRef } from 'react'
 import { useEditor as useTipTapEditor, Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
-import { useEditor } from './useEditor'
+import { usePage } from './usePage'
 
-interface CanvasContextType {
+interface EditorPageContextType {
   editor: Editor
 }
 
-const CanvasContext = createContext<CanvasContextType | undefined>(undefined)
+const EditorPageContext = createContext<EditorPageContextType | undefined>(
+  undefined
+)
 
-export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
-  const { initialContent, setContent } = useEditor()
+export const EditorPageProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
+  const { initialContent, setContent } = usePage()
   const isInitialRender = useRef<boolean>(true)
 
   const editor = useTipTapEditor({
@@ -28,7 +34,7 @@ export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
     },
     content: initialContent,
     onUpdate: ({ editor }) => {
-      console.log('🚀 ~ Canvas ~ editor.getJSON():', editor.getJSON())
+      console.log('🚀 ~ EditorPage ~ editor.getJSON():', editor.getJSON())
       setContent(editor.getJSON())
     },
   })
@@ -49,16 +55,16 @@ export const CanvasProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <CanvasContext.Provider value={{ editor }}>
+    <EditorPageContext.Provider value={{ editor }}>
       {children}
-    </CanvasContext.Provider>
+    </EditorPageContext.Provider>
   )
 }
 
-export const useCanvas = () => {
-  const context = useContext(CanvasContext)
+export const useEditorPage = () => {
+  const context = useContext(EditorPageContext)
   if (!context) {
-    throw new Error('useCanvas must be used within an CanvasProvider')
+    throw new Error('useEditorPage must be used within an EditorPageProvider')
   }
   return context
 }

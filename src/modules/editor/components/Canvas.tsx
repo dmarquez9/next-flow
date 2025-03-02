@@ -1,12 +1,12 @@
 'use client'
 import { EditorContent } from '@tiptap/react'
 
-import { useCanvas } from '../context/useCanvas'
+import { useEditorPage } from '../context/useEditorPage'
 
 import EditorBubble from './EditorBubble'
 
 const Canvas = () => {
-  const { editor } = useCanvas()
+  const { editor } = useEditorPage()
 
   return (
     <>
