@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 
+import { ThemeProvider } from '@/components/ThemeProvider'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
 import { authOptions } from '@/lib/authOptions'
@@ -29,20 +30,27 @@ export default async function EditorLayout({
 
   return (
     <AuthWrapper>
-      <EditorProvider
-        pages={pagesSlugs.map((page) => page.slug)}
-        initialPage={initialPage}
-        initialContent={initialPageContent}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem
+        disableTransitionOnChange
       >
-        <SidebarProvider>
-          <CanvasProvider>
-            <EditorSidebar />
-            <SidebarInset>{children}</SidebarInset>
-            <StyleSidebar />
-          </CanvasProvider>
-        </SidebarProvider>
-      </EditorProvider>
-      <Toaster richColors position="bottom-center" />
+        <EditorProvider
+          pages={pagesSlugs.map((page) => page.slug)}
+          initialPage={initialPage}
+          initialContent={initialPageContent}
+        >
+          <SidebarProvider>
+            <CanvasProvider>
+              <EditorSidebar />
+              <SidebarInset>{children}</SidebarInset>
+              <StyleSidebar />
+            </CanvasProvider>
+          </SidebarProvider>
+        </EditorProvider>
+        <Toaster richColors position="bottom-center" />
+      </ThemeProvider>
     </AuthWrapper>
   )
 }

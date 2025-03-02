@@ -2,16 +2,16 @@
 import { BubbleMenu } from '@tiptap/react'
 import { Bold, Italic, Underline } from 'lucide-react'
 
-import { useCanvas } from '../context/useCanvas'
-
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+
+import { useCanvas } from '../context/useCanvas'
 
 export default function EditorBubble() {
   const { editor } = useCanvas()
 
   return (
     <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-1">
+      <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-sm p-1">
         <ToggleGroup
           type="multiple"
           size="sm"
