@@ -1,4 +1,6 @@
 'use client'
+import { memo } from 'react'
+
 import { EditorContent } from '@tiptap/react'
 
 import { useEditorPage } from '../context/useEditorPage'
@@ -16,4 +18,4 @@ const Canvas = () => {
   )
 }
 
-export default Canvas
+export default memo(Canvas)

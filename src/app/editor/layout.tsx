@@ -8,9 +8,12 @@ import { authOptions } from '@/lib/authOptions'
 import { getAllPageSlugs, getPageContent } from '@/lib/db/page'
 import EditorSidebar from '@/modules/editor/components/EditorSidebar'
 import { StyleSidebar } from '@/modules/editor/components/StyleSidebar'
+import { CurrentNodeProvider } from '@/modules/editor/context/useCurrentNode'
 import { EditorPageProvider } from '@/modules/editor/context/useEditorPage'
 import { PageProvider } from '@/modules/editor/context/usePage'
 import AuthWrapper from '@/modules/login/components/AuthWrapper'
+
+import './editor_classes.css'
 
 export default async function EditorLayout({
   children,
@@ -43,9 +46,14 @@ export default async function EditorLayout({
         >
           <SidebarProvider>
             <EditorPageProvider>
-              <EditorSidebar />
-              <SidebarInset>{children}</SidebarInset>
-              <StyleSidebar />
+              <CurrentNodeProvider>
+                <EditorSidebar />
+                <SidebarInset>
+                  <div className="hidden __load-spacing" />
+                  {children}
+                </SidebarInset>
+                <StyleSidebar />
+              </CurrentNodeProvider>
             </EditorPageProvider>
           </SidebarProvider>
         </PageProvider>

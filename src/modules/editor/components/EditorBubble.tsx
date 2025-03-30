@@ -11,7 +11,7 @@ export default function EditorBubble() {
 
   return (
     <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
-      <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-900 rounded-lg shadow-sm p-1">
+      <div className="bg-white dark:bg-black rounded-lg shadow-sm p-1">
         <ToggleGroup
           type="multiple"
           size="sm"

@@ -1,4 +1,6 @@
 'use client'
+import { useMemo } from 'react'
+
 import { JSONContent } from '@tiptap/react'
 import { DynamicIcon } from 'lucide-react/dynamic'
 
@@ -12,28 +14,28 @@ import {
 } from '@/components/ui/sidebar'
 import { capitalizeFirstLetter } from '@/lib/utils'
 
-import { usePage } from '../context/usePage'
+import { useEditorPage } from '../context/useEditorPage'
 import { getIconName } from '../utils'
 
 export default function LayerList() {
-  const { currentContent } = usePage()
+  const { editor } = useEditorPage()
+  const content = useMemo(() => editor.getJSON()?.content || [], [editor])
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Layers</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {currentContent?.content?.map(
-            (content: JSONContent, index: number) => (
-              <SidebarMenuItem key={index}>
-                <SidebarMenuButton>
-                  <DynamicIcon name={getIconName(content)} />
-                  <span>
-                    {capitalizeFirstLetter(content?.type || 'paragraph')}
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            )
-          )}
+          {content?.map((content: JSONContent, index: number) => (
+            <SidebarMenuItem key={index}>
+              <SidebarMenuButton>
+                <DynamicIcon name={getIconName(content)} />
+                <span>
+                  {capitalizeFirstLetter(content?.type || 'paragraph')}
+                </span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

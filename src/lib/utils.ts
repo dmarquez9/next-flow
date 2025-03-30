@@ -1,3 +1,4 @@
+import { JSONContent } from '@tiptap/react'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -16,4 +17,14 @@ export function getInitials(name: string): string {
   const secondInitial = words[1]?.charAt(0).toUpperCase() || ''
 
   return firstInitial + secondInitial
+}
+
+export function renderNodeAttrs(node: JSONContent) {
+  if (!node.attrs) return {}
+  const { class: className, id } = node.attrs
+
+  return {
+    ...(className && { className }),
+    ...(id && { id }),
+  }
 }

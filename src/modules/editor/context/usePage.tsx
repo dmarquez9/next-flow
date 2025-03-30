@@ -15,13 +15,11 @@ import { toast } from 'sonner'
 // Define the Context Type
 type PageContextType = {
   currentPage: string
-  currentContent: JSONContent
   initialContent: JSONContent
   isSaving: boolean
   pages: string[]
   setPage: (slug: string) => void
-  savePageContent: () => Promise<void>
-  setContent: (content: JSONContent) => void
+  savePageContent: (content: JSONContent) => Promise<void>
 }
 
 type PageProviderProps = {
@@ -42,8 +40,6 @@ export function PageProvider({
   pages,
 }: PageProviderProps) {
   const [currentPage, setCurrentPage] = useState<string>(initialPage)
-  const [currentContent, setCurrentContent] =
-    useState<JSONContent>(initialRenderContent)
   const [initialContent, setInitialContent] =
     useState<JSONContent>(initialRenderContent)
   const [isSaving, setIsSaving] = useState<boolean>(false)
@@ -60,7 +56,6 @@ export function PageProvider({
     }
 
     if (!currentPage) {
-      setCurrentContent([])
       return
     }
 
@@ -71,7 +66,6 @@ export function PageProvider({
 
         if (!response.ok) throw new Error(data.message)
 
-        setCurrentContent(data.content || {})
         setInitialContent(data.content || {})
       } catch (error) {
         console.error('Error fetching page content:', error)
@@ -81,14 +75,14 @@ export function PageProvider({
     fetchContent()
   }, [currentPage])
 
-  const savePageContent = async () => {
+  const savePageContent = async (content: JSONContent) => {
     if (!currentPage) return
     setIsSaving(true)
     try {
       const response = await fetch('/api/pages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug: currentPage, content: currentContent }),
+        body: JSON.stringify({ slug: currentPage, content }),
       })
 
       const data = await response.json()
@@ -108,12 +102,10 @@ export function PageProvider({
     <PageContext.Provider
       value={{
         currentPage,
-        currentContent,
         initialContent,
         isSaving,
         setPage,
         savePageContent,
-        setContent: setCurrentContent,
         pages,
       }}
     >

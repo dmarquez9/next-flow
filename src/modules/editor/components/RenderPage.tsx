@@ -2,9 +2,7 @@ import { JSX } from 'react'
 
 import { JSONContent } from '@tiptap/react'
 
-import { cn } from '@/lib/utils'
-
-import { TextElement } from '../types'
+import { cn, renderNodeAttrs } from '@/lib/utils'
 
 type TKey = string | number
 
@@ -30,7 +28,7 @@ function renderContent(block: JSONContent, key: TKey) {
     }
     case 'paragraph':
       return (
-        <p key={key}>
+        <p key={key} {...renderNodeAttrs(block)}>
           {block.content?.map((content, index) =>
             renderContent(content, `${block.type}-${key}-${index}`)
           )}
@@ -38,10 +36,14 @@ function renderContent(block: JSONContent, key: TKey) {
       )
 
     case 'heading': {
-      const HeadingTag = `h${block.level}` as keyof JSX.IntrinsicElements
+      const HeadingTag = `h${
+        block.attrs?.level || 1
+      }` as keyof JSX.IntrinsicElements
       return (
-        <HeadingTag key={key}>
-          {block.children.map((child: TextElement) => child.text).join('')}
+        <HeadingTag key={key} {...renderNodeAttrs(block)}>
+          {block.content?.map((content, index) =>
+            renderContent(content, `${block.type}-${key}-${index}`)
+          )}
         </HeadingTag>
       )
     }
