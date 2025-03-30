@@ -18,7 +18,6 @@ const spacingAttrs: TSpacingKey[] = [
 
 const getSpacingValue = (key: TSpacingKey, element: HTMLElement) => {
   const elementClass = element.getAttribute('class')
-  console.log('🚀 ~ getSpacingValue ~ elementClass:', elementClass)
 
   if (elementClass) {
     const keyClass = elementClass.split(' ').find((v) => v.startsWith(key))
@@ -46,7 +45,7 @@ const Spacing = Extension.create({
 
     return [
       {
-        types: ['heading', 'paragraph'],
+        types: ['heading', 'paragraph', 'divBlock'],
         attributes: {
           ...spacingAttrsObj,
           class: {
