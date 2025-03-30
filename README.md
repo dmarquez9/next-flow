@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔷 NextFlow
 
-## Getting Started
+**NextFlow** is a visual page builder built with **Next.js** and inspired by the ideas behind Webflow — but with full control over components, styles, and logic.
 
-First, run the development server:
+At its core, it features a custom WYSIWYG editor built with **Tiptap**, enabling users to create pages using **React components** and control attributes like margin, padding, classes, and more using a real-time visual interface.
+
+---
+
+## 🚀 Tech Stack
+
+- **Next.js 15** (App Router)
+- **Tiptap** – Headless WYSIWYG editor
+- **Prisma** – ORM and schema for the database
+- **TailwindCSS** – Utility-first styling
+- **shadcn/ui** – Accessible and reusable components
+- **NextAuth.js** – Auth with `CredentialsProvider` (email + password)
+- **TypeScript**
+- **React Hook Form** – For form handling
+
+---
+
+## 📁 Scripts
+
+| Command                  | Description                             |
+| ------------------------ | --------------------------------------- |
+| `npm run dev`            | Start the development server            |
+| `npm run build`          | Create a production build               |
+| `npm run start`          | Start the production server             |
+| `npm run lint`           | Run ESLint                              |
+| `npx prisma generate`    | Generate the Prisma client              |
+| `npx prisma studio`      | Open Prisma Studio UI                   |
+| `npx prisma db push`     | Sync models to the database             |
+| `npx prisma db pull`     | Introspect an existing database         |
+| `npx prisma migrate dev` | Create and apply a migration (dev only) |
+
+---
+
+## 🧪 Getting Started
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-user/nextflow.git
+cd nextflow
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Create a `.env` file**
+
+```env
+DATABASE_URL=""        # Prisma Database URL
+NEXTAUTH_SECRET=""     # Secret key for NextAuth session encryption
+```
+
+4. **Generate Prisma client**
+
+```bash
+npx prisma generate
+```
+
+5. **Run the development server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to [`http://localhost:3000`](http://localhost:3000) to see the app running.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔐 Authentication
 
-## Learn More
+The authentication system is powered by **NextAuth.js** using the **CredentialsProvider**, where users sign in using **email and password**. Registration is not available — only authorized users can log in.
 
-To learn more about Next.js, take a look at the following resources:
+Access to `/editor` is protected and requires a valid session.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✨ Features
 
-## Deploy on Vercel
+- ⚡ Build pages visually using a custom Tiptap WYSIWYG editor
+- 🧱 Render React components based on structured JSON content
+- 🎨 Modify and apply Tailwind classes like `mt-4`, `p-6`, `text-center` dynamically
+- 🔐 Protected dashboard using credential-based auth
+- 💾 Pages are saved with versioned JSON content via Prisma
+- 📚 Editor context allows for dynamic state management of page + content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔄 Roadmap
+
+- [x] Node rendering with live component updates
+- [x] Margin & padding visual controls
+- [x] Class attribute editing
+- [x] Authentication with credentials
+- [ ] Public preview URLs
+- [ ] Drag & drop layout building
+- [ ] Component library integration
+- [ ] Per-page SEO configuration 🔍
+- [ ] Custom body styles per page 🎨
+- [ ] Drag & drop components/modules into the editor 🧩
+
+---
+
+## 🤝 Contributing
+
+Pull requests and issues are welcome. If you have an idea or improvement, feel free to open a discussion or PR. 🙌
+
+---
+
+## 🧾 License
+
+MIT — © 2025 Daniel Marquez
