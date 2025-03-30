@@ -20,7 +20,7 @@ function SelectSpacing({ spacingKey }: { spacingKey: TSpacingKey }) {
   const { attributes } = useCurrentNode()
 
   const handleValueChange = (value: string) => {
-    updateNodeAttr(spacingKey, value)
+    updateNodeAttr({ [spacingKey]: value })
   }
 
   const currentValue = attributes[spacingKey] as string
