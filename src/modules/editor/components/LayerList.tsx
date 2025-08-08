@@ -1,6 +1,4 @@
 'use client'
-import { useMemo } from 'react'
-
 import { JSONContent } from '@tiptap/react'
 import { DynamicIcon } from 'lucide-react/dynamic'
 
@@ -19,7 +17,7 @@ import { getIconName } from '../utils'
 
 export default function LayerList() {
   const { editor } = useEditorPage()
-  const content = useMemo(() => editor.getJSON()?.content || [], [editor])
+  const content = editor.getJSON()?.content
 
   return (
     <SidebarGroup>
