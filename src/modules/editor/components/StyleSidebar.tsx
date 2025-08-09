@@ -1,8 +1,14 @@
 import * as React from 'react'
 
-import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+} from '@/components/ui/sidebar'
 
-import { LayerSwitcher } from './LayerSwitcher'
+import LayerHeader from './LayerHeader'
+import HeadingGroup from './style-group/HeadingGroup'
 import SpacingGroup from './style-group/SpacingGroup'
 
 export function StyleSidebar({
@@ -15,10 +21,13 @@ export function StyleSidebar({
       {...props}
     >
       <SidebarHeader>
-        <LayerSwitcher />
+        <LayerHeader />
       </SidebarHeader>
       <SidebarContent>
-        <SpacingGroup />
+        <SidebarMenu>
+          <HeadingGroup />
+          <SpacingGroup />
+        </SidebarMenu>
       </SidebarContent>
     </Sidebar>
   )

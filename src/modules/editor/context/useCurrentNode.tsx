@@ -5,6 +5,8 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { Attrs } from '@tiptap/pm/model'
 import { Node as ProseMirrorNode } from 'prosemirror-model'
 
+import { NODE_ATTRS_UPDATED_EVENT } from '../events/nodeAttrsUpdated'
+
 import { useEditorPage } from './useEditorPage'
 
 type UseCurrentNodeResult = {
@@ -67,9 +69,11 @@ export const CurrentNodeProvider = ({
 
     updateSelection()
     editor.on('selectionUpdate', updateSelection)
+    window.addEventListener(NODE_ATTRS_UPDATED_EVENT, updateSelection)
 
     return () => {
       editor.off('selectionUpdate', updateSelection)
+      window.removeEventListener(NODE_ATTRS_UPDATED_EVENT, updateSelection)
     }
   }, [editor])
 

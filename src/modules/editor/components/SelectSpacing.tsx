@@ -14,6 +14,7 @@ import { TSpacingKey } from '@/types'
 
 import { useCurrentNode } from '../context/useCurrentNode'
 import { useEditorPage } from '../context/useEditorPage'
+import { emitNodeAttrsUpdated } from '../events/nodeAttrsUpdated'
 
 function SelectSpacing({ spacingKey }: { spacingKey: TSpacingKey }) {
   const { updateNodeAttr } = useEditorPage()
@@ -21,6 +22,7 @@ function SelectSpacing({ spacingKey }: { spacingKey: TSpacingKey }) {
 
   const handleValueChange = (value: string) => {
     updateNodeAttr({ [spacingKey]: value })
+    emitNodeAttrsUpdated({ category: 'spacing', keys: [spacingKey] })
   }
 
   const currentValue = attributes[spacingKey] as string

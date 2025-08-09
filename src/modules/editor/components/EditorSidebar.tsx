@@ -1,3 +1,4 @@
+'use client'
 import {
   Sidebar,
   SidebarContent,
@@ -5,13 +6,16 @@ import {
   SidebarHeader,
 } from '@/components/ui/sidebar'
 
+import { useCurrentNode } from '../context/useCurrentNode'
+
 import LayerList from './LayerList'
 import { NavUser } from './NavUser'
 import { SelectPage } from './SelectPage'
 
 export default function EditorSidebar() {
+  const { node } = useCurrentNode()
   return (
-    <Sidebar>
+    <Sidebar key={node?.toString()}>
       <SidebarHeader>
         <SelectPage />
       </SidebarHeader>
