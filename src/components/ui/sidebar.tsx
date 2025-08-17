@@ -1,12 +1,11 @@
 "use client"
 
 import * as React from "react"
+
 import { Slot } from "@radix-ui/react-slot"
 import { cva, VariantProps } from "class-variance-authority"
 import { PanelLeftIcon } from "lucide-react"
 
-import { useIsMobile } from "@/hooks/use-mobile"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
@@ -24,6 +23,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -54,12 +55,12 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
-  open: openProp,
-  onOpenChange: setOpenProp,
-  className,
-  style,
   children,
+  className,
+  defaultOpen = true,
+  onOpenChange: setOpenProp,
+  open: openProp,
+  style,
   ...props
 }: React.ComponentProps<"div"> & {
   defaultOpen?: boolean
@@ -152,18 +153,18 @@ function SidebarProvider({
 }
 
 function Sidebar({
+  children,
+  className,
+  collapsible = "offcanvas",
   side = "left",
   variant = "sidebar",
-  collapsible = "offcanvas",
-  className,
-  children,
   ...props
 }: React.ComponentProps<"div"> & {
   side?: "left" | "right"
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, openMobile, setOpenMobile, state } = useSidebar()
 
   if (collapsible === "none") {
     return (
@@ -394,8 +395,8 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function SidebarGroupLabel({
-  className,
   asChild = false,
+  className,
   ...props
 }: React.ComponentProps<"div"> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : "div"
@@ -415,8 +416,8 @@ function SidebarGroupLabel({
 }
 
 function SidebarGroupAction({
-  className,
   asChild = false,
+  className,
   ...props
 }: React.ComponentProps<"button"> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : "button"
@@ -497,11 +498,11 @@ const sidebarMenuButtonVariants = cva(
 
 function SidebarMenuButton({
   asChild = false,
+  className,
   isActive = false,
-  variant = "default",
   size = "default",
   tooltip,
-  className,
+  variant = "default",
   ...props
 }: React.ComponentProps<"button"> & {
   asChild?: boolean
@@ -546,8 +547,8 @@ function SidebarMenuButton({
 }
 
 function SidebarMenuAction({
-  className,
   asChild = false,
+  className,
   showOnHover = false,
   ...props
 }: React.ComponentProps<"button"> & {
@@ -668,9 +669,9 @@ function SidebarMenuSubItem({
 
 function SidebarMenuSubButton({
   asChild = false,
-  size = "md",
-  isActive = false,
   className,
+  isActive = false,
+  size = "md",
   ...props
 }: React.ComponentProps<"a"> & {
   asChild?: boolean
