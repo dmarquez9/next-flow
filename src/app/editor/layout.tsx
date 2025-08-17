@@ -13,7 +13,8 @@ import { EditorPageProvider } from '@/modules/editor/context/useEditorPage'
 import { PageProvider } from '@/modules/editor/context/usePage'
 import AuthWrapper from '@/modules/login/components/AuthWrapper'
 
-import './editor_classes.css'
+import '../globals.css'
+// import './editor_classes.css'
 
 export default async function EditorLayout({
   children,
@@ -32,33 +33,37 @@ export default async function EditorLayout({
   const initialPageContent = await getPageContent(initialPage)
 
   return (
-    <AuthWrapper>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <PageProvider
-          pages={pagesSlugs.map((page) => page.slug)}
-          initialPage={initialPage}
-          initialContent={initialPageContent}
-        >
-          <SidebarProvider>
-            <EditorPageProvider>
-              <CurrentNodeProvider>
-                <EditorSidebar />
-                <SidebarInset>
-                  <div className="hidden __load-spacing" />
-                  {children}
-                </SidebarInset>
-                <StyleSidebar />
-              </CurrentNodeProvider>
-            </EditorPageProvider>
-          </SidebarProvider>
-        </PageProvider>
-        <Toaster richColors position="bottom-center" />
-      </ThemeProvider>
-    </AuthWrapper>
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <AuthWrapper>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <PageProvider
+                pages={pagesSlugs.map((page) => page.slug)}
+                initialPage={initialPage}
+                initialContent={initialPageContent}
+              >
+                <SidebarProvider>
+                  <EditorPageProvider>
+                    <CurrentNodeProvider>
+                      <EditorSidebar />
+                      <SidebarInset>{children}</SidebarInset>
+                      <StyleSidebar />
+                    </CurrentNodeProvider>
+                  </EditorPageProvider>
+                </SidebarProvider>
+              </PageProvider>
+              <Toaster richColors position="bottom-center" />
+            </ThemeProvider>
+          </AuthWrapper>
+        </body>
+      </html>
+    </>
   )
 }

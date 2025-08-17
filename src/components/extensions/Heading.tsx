@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 export const headingClassByLevel: Record<string, string> = {
   1: 'scroll-m-20 text-4xl font-extrabold tracking-tight',
-  2: 'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight',
+  2: 'scroll-m-20 text-3xl font-semibold tracking-tight',
   3: 'scroll-m-20 text-2xl font-semibold tracking-tight',
   4: 'scroll-m-20 text-xl font-semibold tracking-tight',
 }

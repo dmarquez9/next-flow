@@ -46,7 +46,7 @@ export function SelectPage() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width]"
+            className="w-(--radix-dropdown-menu-trigger-width)"
             align="start"
           >
             {pages.map((slug) => (
